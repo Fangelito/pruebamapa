@@ -1,0 +1,1316 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/ValordeZn_1.js"></script>
+        <script src="data/ValordeTl_2.js"></script>
+        <script src="data/ValordePb_3.js"></script>
+        <script src="data/ValordeCu_4.js"></script>
+        <script src="data/ValordeCd_5.js"></script>
+        <script src="data/ValordeAs_6.js"></script>
+        <script src="data/Provincias_7.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:3
+        }).fitBounds([[34.784599900404714,-11.06164554836333],[39.82049428997389,2.5904182687246506]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 3,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        function pop_ValordeZn_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Zn_Max</strong><br />' + (feature.properties['Zn_Max'] !== null ? autolinker.link(feature.properties['Zn_Max'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Zn_Min</th>\
+                        <td>' + (feature.properties['Zn_Min'] !== null ? autolinker.link(feature.properties['Zn_Min'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ValordeZn_1_0(feature) {
+            switch(String(feature.properties['Zn_Max'])) {
+                case '18.11':
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '25.94':
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,91,58,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '39.25':
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(249,158,89,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '51.11':
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,201,128,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '67.19':
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,237,170,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '85.5':
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,248,185,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '85.51':
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,233,173,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '122':
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(157,211,167,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '8669.04':
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,171,176,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_ValordeZn_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ValordeZn_1');
+        map.getPane('pane_ValordeZn_1').style.zIndex = 401;
+        map.getPane('pane_ValordeZn_1').style['mix-blend-mode'] = 'normal';
+        var layer_ValordeZn_1 = new L.geoJson(json_ValordeZn_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ValordeZn_1',
+            layerName: 'layer_ValordeZn_1',
+            pane: 'pane_ValordeZn_1',
+            onEachFeature: pop_ValordeZn_1,
+            style: style_ValordeZn_1_0,
+        });
+        bounds_group.addLayer(layer_ValordeZn_1);
+        map.addLayer(layer_ValordeZn_1);
+        function pop_ValordeTl_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Tl_Max</strong><br />' + (feature.properties['Tl_Max'] !== null ? autolinker.link(feature.properties['Tl_Max'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tl_Min</th>\
+                        <td>' + (feature.properties['Tl_Min'] !== null ? autolinker.link(feature.properties['Tl_Min'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ValordeTl_2_0(feature) {
+            switch(String(feature.properties['Tl_Max'])) {
+                case '0.04':
+                    return {
+                pane: 'pane_ValordeTl_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.07':
+                    return {
+                pane: 'pane_ValordeTl_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(234,99,62,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.12':
+                    return {
+                pane: 'pane_ValordeTl_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,174,97,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.16':
+                    return {
+                pane: 'pane_ValordeTl_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,215,144,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.21':
+                    return {
+                pane: 'pane_ValordeTl_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,191,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.31':
+                    return {
+                pane: 'pane_ValordeTl_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,238,178,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.56':
+                    return {
+                pane: 'pane_ValordeTl_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(171,221,164,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '15.93':
+                    return {
+                pane: 'pane_ValordeTl_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(107,176,175,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_ValordeTl_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ValordeTl_2');
+        map.getPane('pane_ValordeTl_2').style.zIndex = 402;
+        map.getPane('pane_ValordeTl_2').style['mix-blend-mode'] = 'normal';
+        var layer_ValordeTl_2 = new L.geoJson(json_ValordeTl_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ValordeTl_2',
+            layerName: 'layer_ValordeTl_2',
+            pane: 'pane_ValordeTl_2',
+            onEachFeature: pop_ValordeTl_2,
+            style: style_ValordeTl_2_0,
+        });
+        bounds_group.addLayer(layer_ValordeTl_2);
+        map.addLayer(layer_ValordeTl_2);
+        function pop_ValordePb_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Pb_Max</strong><br />' + (feature.properties['Pb_Max'] !== null ? autolinker.link(feature.properties['Pb_Max'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pb_Min</th>\
+                        <td>' + (feature.properties['Pb_Min'] !== null ? autolinker.link(feature.properties['Pb_Min'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ValordePb_3_0(feature) {
+            switch(String(feature.properties['Pb_Max'])) {
+                case '7.64':
+                    return {
+                pane: 'pane_ValordePb_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '12.25':
+                    return {
+                pane: 'pane_ValordePb_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(234,99,62,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '16.62':
+                    return {
+                pane: 'pane_ValordePb_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,174,97,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '21.25':
+                    return {
+                pane: 'pane_ValordePb_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,215,144,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '26.75':
+                    return {
+                pane: 'pane_ValordePb_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,191,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '37.5':
+                    return {
+                pane: 'pane_ValordePb_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,238,178,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '56':
+                    return {
+                pane: 'pane_ValordePb_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(171,221,164,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '8545.13':
+                    return {
+                pane: 'pane_ValordePb_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(107,176,175,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_ValordePb_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ValordePb_3');
+        map.getPane('pane_ValordePb_3').style.zIndex = 403;
+        map.getPane('pane_ValordePb_3').style['mix-blend-mode'] = 'normal';
+        var layer_ValordePb_3 = new L.geoJson(json_ValordePb_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ValordePb_3',
+            layerName: 'layer_ValordePb_3',
+            pane: 'pane_ValordePb_3',
+            onEachFeature: pop_ValordePb_3,
+            style: style_ValordePb_3_0,
+        });
+        bounds_group.addLayer(layer_ValordePb_3);
+        map.addLayer(layer_ValordePb_3);
+        function pop_ValordeCu_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Cu_Max</strong><br />' + (feature.properties['Cu_Max'] !== null ? autolinker.link(feature.properties['Cu_Max'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cu_Min</th>\
+                        <td>' + (feature.properties['Cu_Min'] !== null ? autolinker.link(feature.properties['Cu_Min'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ValordeCu_4_0(feature) {
+            switch(String(feature.properties['Cu_Max'])) {
+                case '4.6':
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '7.7':
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,91,58,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '11.9':
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(249,158,89,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '16.1':
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,201,128,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '16.11':
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,237,170,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '22.1':
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,248,185,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '30.1':
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,233,173,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '51':
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(157,211,167,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '5027.6':
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,171,176,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_ValordeCu_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ValordeCu_4');
+        map.getPane('pane_ValordeCu_4').style.zIndex = 404;
+        map.getPane('pane_ValordeCu_4').style['mix-blend-mode'] = 'normal';
+        var layer_ValordeCu_4 = new L.geoJson(json_ValordeCu_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ValordeCu_4',
+            layerName: 'layer_ValordeCu_4',
+            pane: 'pane_ValordeCu_4',
+            onEachFeature: pop_ValordeCu_4,
+            style: style_ValordeCu_4_0,
+        });
+        bounds_group.addLayer(layer_ValordeCu_4);
+        map.addLayer(layer_ValordeCu_4);
+        function pop_ValordeCd_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Cd_Max</strong><br />' + (feature.properties['Cd_Max'] !== null ? autolinker.link(feature.properties['Cd_Max'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cd_Min</th>\
+                        <td>' + (feature.properties['Cd_Min'] !== null ? autolinker.link(feature.properties['Cd_Min'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ValordeCd_5_0(feature) {
+            switch(String(feature.properties['Cd_Max'])) {
+                case '0.01':
+                    return {
+                pane: 'pane_ValordeCd_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.02':
+                    return {
+                pane: 'pane_ValordeCd_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(234,99,62,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.03':
+                    return {
+                pane: 'pane_ValordeCd_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,174,97,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.05':
+                    return {
+                pane: 'pane_ValordeCd_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,215,144,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.08':
+                    return {
+                pane: 'pane_ValordeCd_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,191,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.12':
+                    return {
+                pane: 'pane_ValordeCd_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,238,178,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '0.31':
+                    return {
+                pane: 'pane_ValordeCd_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(171,221,164,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '33.6':
+                    return {
+                pane: 'pane_ValordeCd_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(107,176,175,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_ValordeCd_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ValordeCd_5');
+        map.getPane('pane_ValordeCd_5').style.zIndex = 405;
+        map.getPane('pane_ValordeCd_5').style['mix-blend-mode'] = 'normal';
+        var layer_ValordeCd_5 = new L.geoJson(json_ValordeCd_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ValordeCd_5',
+            layerName: 'layer_ValordeCd_5',
+            pane: 'pane_ValordeCd_5',
+            onEachFeature: pop_ValordeCd_5,
+            style: style_ValordeCd_5_0,
+        });
+        bounds_group.addLayer(layer_ValordeCd_5);
+        map.addLayer(layer_ValordeCd_5);
+        function pop_ValordeAs_6(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>As_Max</strong><br />' + (feature.properties['As_Max'] !== null ? autolinker.link(feature.properties['As_Max'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">As_Min</th>\
+                        <td>' + (feature.properties['As_Min'] !== null ? autolinker.link(feature.properties['As_Min'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ValordeAs_6_0(feature) {
+            switch(String(feature.properties['As_Max'])) {
+                case '2.65':
+                    return {
+                pane: 'pane_ValordeAs_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '3.55':
+                    return {
+                pane: 'pane_ValordeAs_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(234,99,62,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '6.59':
+                    return {
+                pane: 'pane_ValordeAs_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,174,97,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '8.67':
+                    return {
+                pane: 'pane_ValordeAs_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,215,144,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '11.71':
+                    return {
+                pane: 'pane_ValordeAs_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,191,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '16.57':
+                    return {
+                pane: 'pane_ValordeAs_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,238,178,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '35':
+                    return {
+                pane: 'pane_ValordeAs_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(171,221,164,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '2152.3':
+                    return {
+                pane: 'pane_ValordeAs_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(107,176,175,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_ValordeAs_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ValordeAs_6');
+        map.getPane('pane_ValordeAs_6').style.zIndex = 406;
+        map.getPane('pane_ValordeAs_6').style['mix-blend-mode'] = 'normal';
+        var layer_ValordeAs_6 = new L.geoJson(json_ValordeAs_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ValordeAs_6',
+            layerName: 'layer_ValordeAs_6',
+            pane: 'pane_ValordeAs_6',
+            onEachFeature: pop_ValordeAs_6,
+            style: style_ValordeAs_6_0,
+        });
+        bounds_group.addLayer(layer_ValordeAs_6);
+        map.addLayer(layer_ValordeAs_6);
+        function pop_Provincias_7(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cartodb_id'] !== null ? autolinker.link(feature.properties['cartodb_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ccaa'] !== null ? autolinker.link(feature.properties['ccaa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cod_ccaa'] !== null ? autolinker.link(feature.properties['cod_ccaa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['texto_alt'] !== null ? autolinker.link(feature.properties['texto_alt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['texto'] !== null ? autolinker.link(feature.properties['texto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['codigo'] !== null ? autolinker.link(feature.properties['codigo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Provincias_7_0() {
+            return {
+                pane: 'pane_Provincias_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,255,0.0)',
+                interactive: true,
+            }
+        }
+        function style_Provincias_7_1() {
+            return {
+                pane: 'pane_Provincias_7',
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '1,5',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(196,60,57,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Provincias_7');
+        map.getPane('pane_Provincias_7').style.zIndex = 407;
+        map.getPane('pane_Provincias_7').style['mix-blend-mode'] = 'normal';
+        var layer_Provincias_7 = new L.geoJson.multiStyle(json_Provincias_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Provincias_7',
+            layerName: 'layer_Provincias_7',
+            pane: 'pane_Provincias_7',
+            onEachFeature: pop_Provincias_7,
+            styles: [style_Provincias_7_0,style_Provincias_7_1,]
+        });
+        bounds_group.addLayer(layer_Provincias_7);
+        map.addLayer(layer_Provincias_7);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Provincias_7.png" /> Provincias': layer_Provincias_7,'Valor de As<br /><table><tr><td style="text-align: center;"><img src="legend/ValordeAs_6_2650.png" /></td><td>2,65</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeAs_6_3551.png" /></td><td>3,55</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeAs_6_6592.png" /></td><td>6,59</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeAs_6_8673.png" /></td><td>8,67</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeAs_6_11714.png" /></td><td>11,71</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeAs_6_16575.png" /></td><td>16,57</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeAs_6_35006.png" /></td><td>35,00</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeAs_6_2152307.png" /></td><td>2152,30</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeAs_6_8.png" /></td><td></td></tr></table>': layer_ValordeAs_6,'Valor de Cd<br /><table><tr><td style="text-align: center;"><img src="legend/ValordeCd_5_0010.png" /></td><td>0,01</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCd_5_0021.png" /></td><td>0,02</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCd_5_0032.png" /></td><td>0,03</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCd_5_0053.png" /></td><td>0,05</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCd_5_0084.png" /></td><td>0,08</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCd_5_0125.png" /></td><td>0,12</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCd_5_0316.png" /></td><td>0,31</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCd_5_33607.png" /></td><td>33,60</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCd_5_8.png" /></td><td></td></tr></table>': layer_ValordeCd_5,'Valor de Cu<br /><table><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_4600.png" /></td><td>4,60</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_7701.png" /></td><td>7,70</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_11902.png" /></td><td>11,90</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_16103.png" /></td><td>16,10</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_16114.png" /></td><td>16,11</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_22105.png" /></td><td>22,10</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_30106.png" /></td><td>30,10</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_51007.png" /></td><td>51,00</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_5027608.png" /></td><td>5027,60</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeCu_4_9.png" /></td><td></td></tr></table>': layer_ValordeCu_4,'Valor de Pb<br /><table><tr><td style="text-align: center;"><img src="legend/ValordePb_3_7640.png" /></td><td>7,64</td></tr><tr><td style="text-align: center;"><img src="legend/ValordePb_3_12251.png" /></td><td>12,25</td></tr><tr><td style="text-align: center;"><img src="legend/ValordePb_3_16622.png" /></td><td>16,62</td></tr><tr><td style="text-align: center;"><img src="legend/ValordePb_3_21253.png" /></td><td>21,25</td></tr><tr><td style="text-align: center;"><img src="legend/ValordePb_3_26754.png" /></td><td>26,75</td></tr><tr><td style="text-align: center;"><img src="legend/ValordePb_3_37505.png" /></td><td>37,50</td></tr><tr><td style="text-align: center;"><img src="legend/ValordePb_3_56006.png" /></td><td>56,00</td></tr><tr><td style="text-align: center;"><img src="legend/ValordePb_3_8545137.png" /></td><td>8545,13</td></tr><tr><td style="text-align: center;"><img src="legend/ValordePb_3_8.png" /></td><td></td></tr></table>': layer_ValordePb_3,'Valor de Tl<br /><table><tr><td style="text-align: center;"><img src="legend/ValordeTl_2_0040.png" /></td><td>0,04</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeTl_2_0071.png" /></td><td>0,07</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeTl_2_0122.png" /></td><td>0,12</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeTl_2_0163.png" /></td><td>0,16</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeTl_2_0214.png" /></td><td>0,21</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeTl_2_0315.png" /></td><td>0,31</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeTl_2_0566.png" /></td><td>0,56</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeTl_2_15937.png" /></td><td>15,93</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeTl_2_8.png" /></td><td></td></tr></table>': layer_ValordeTl_2,'Valor de Zn<br /><table><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_18110.png" /></td><td>18,11</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_25941.png" /></td><td>25,94</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_39252.png" /></td><td>39,25</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_51113.png" /></td><td>51,11</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_67194.png" /></td><td>67,19</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_85505.png" /></td><td>85,50</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_85516.png" /></td><td>85,51</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_122007.png" /></td><td>122,00</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_8669048.png" /></td><td>8669,04</td></tr><tr><td style="text-align: center;"><img src="legend/ValordeZn_1_9.png" /></td><td></td></tr></table>': layer_ValordeZn_1,"Google Satellite": layer_GoogleSatellite_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_Provincias_7.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['texto'] !== null?String('<div style="color: #ffffff; font-size: 12pt; font-family: \'.AppleSystemUIFont\', sans-serif;">' + layer.feature.properties['texto']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Provincias_7'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_Provincias_7,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'texto'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        resetLabels([layer_Provincias_7]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Provincias_7]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Provincias_7]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Provincias_7]);
+        });
+        </script>
+    </body>
+</html>
